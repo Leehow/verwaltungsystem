@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Suchen</title>
+
+    <!-- Bootstrap -->
+    <link href="templates/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <h1>Suchen</h1>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+  
+  
+  <div class="col-md-2"><input type="text" class="form-control" id="name" placeholder="Name"></div>
+  <div class="col-md-2"><input type="text" class="form-control" id="vorname" placeholder="Vorname"></div>
+  <div class="col-md-2">
+      <select id="fach_select" class="form-control">
+        <option id="fach_select_0" value="0">Fachschaft</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+      <select id="amt_select" class="form-control">
+              <option id="amt_select_0" value="0">Wahlperiode</option>
+    </select>
+  </div>
+  <div class="col-md-1">
+      <select id="grem_select" class="form-control">
+              <option id="grem_select_0" value="0">Gremiun</option>
+    </select>
+  </div>
+  
+  <div class="col-md-1">
+      <a id="suchen" class="btn btn-default" href="javascript:;" role="button" onclick="suchen();">Suchen</a>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+      
+      <p></p>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <table id="list" class="table table-striped" style="display: none;">
+  <tr>
+  <td>Name</td>
+  <td>Vorname</td>
+  <td>Matrikelnr.</td>
+  <td>Fachschaft</td>
+  <td>Gremien</td>
+  <td>Status</td>
+  </tr>
+  <tr id="list_0" style="display: none;">
+      <td><span id="name"></span></td>
+  <td><span id="vorname"></span></td>
+  <td><span id="matr"></span></td>
+  <td><span id="fach"></span><span id="amt1"></span></td>
+  <td><span id="gremin"></span><span id="amt2"></span></td>
+  <td><span id="status"></span></td>
+  </tr>
+  <tr id="list_00" style="display: none;">
+      <td colspan="5"><span id="begrund"></span></td>
+  <td><span id="amt3"></span></td>
+  </tr>
+</table>
+      
+      
+      
+  </div>
+  <div class="col-md-1"></div>
+</div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="templates/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            fach_fresh();
+            grem_fresh();
+            amt_fresh();
+            select_all();
+          });
+          
+          
+        function statu(id){
+            if(1==id){
+                return "Normal";
+            }
+            else if(2==id){
+                return "Austritt";
+            }
+            else if(3==id){
+                return "Nachrücker";
+            }
+        }
+        
+        function fach_fresh(){
+              $.post("select_o.php",
+                    {
+                      method:"fach",
+                    },
+                    function(data){
+                        $.each(data, function(key, value) {
+                            
+                            //选项卡添加
+                            var fach_select=$("#fach_select_0").clone();
+                            fach_select.show();
+                            fach_select.attr("id","fach_select_"+value['F_id']);
+                            fach_select.html(value['Bezeichnung']);
+                            fach_select.val(value['F_id']);
+                            $("#fach_select").append(fach_select);
+                            
+                            });     
+                    },'json');
+              
+          }
+          function grem_fresh(){
+              $.post("select_o.php",
+                    {
+                      method:"gremien",
+                    },
+                    function(data){
+                        $.each(data, function(key, value) { 
+                            //选项卡添加
+                            var grem_select=$("#grem_select_0").clone();
+                            grem_select.show();
+                            grem_select.attr("id","grem_select_"+value['G_id']);
+                            grem_select.html(value['Bezeichnung']);
+                            grem_select.val(value['G_id']);
+                            $("#grem_select").append(grem_select);
+                            
+                            });     
+                    },'json');
+          }
+          function amt_fresh(){
+              $.post("select_o.php",
+                    {
+                      method:"amtsper",
+                    },
+                    function(data){
+                        $.each(data, function(key, value) { 
+                            //选项卡添加
+                            var amt_select=$("#amt_select_0").clone();
+                            amt_select.show();
+                            amt_select.attr("id","amt_select_"+value['A_id']);
+                            amt_select.html(value['Beginn']+"-"+value['Ende']);
+                            amt_select.val(value['A_id']);
+                            $("#amt_select").append(amt_select);
+                            
+                            });     
+                    },'json');
+          }
+        
+        function select_all(name,vorname,fach,amt,gremin){
+            $("#listp").remove();
+            var vlist=$("#list").clone();
+            vlist.attr("id","listp");
+            vlist.show();
+            $("#list").after(vlist);
+            $.post("select_all.php",
+                    {
+                      "name":name,
+                      "vorname":vorname,
+                      "fach":fach,
+                      "amt":amt,
+                      "gremin":gremin
+                    },
+                    function(data){
+                        if(!data){
+                            return false;
+                        }
+//                        else{
+//                            alert(data);
+//                        }
+                        $.each(data, function(key, value) { 
+                            //选项卡添加
+                            var list=$("#list_0").clone();
+                            list.show();
+                            list.attr("id","list_"+value['P_id']);
+                            list.find("#name").html(value['Name']);
+                            list.find("#vorname").html(value['Vorname']);
+                            list.find("#matr").html(value['Matrikelnr']);
+                            list.find("#fach").html(value['fach']);
+                            list.find("#amt1").html(" ("+value['fachzeitbeginn']+"-"+value['fachzeitende']+")");
+                            list.find("#gremin").html(value['gremin']);
+                            list.find("#amt2").html(" ("+value['greminzeitbeginn']+"-"+value['greminzeitende']+")");
+                            var st=statu(value['Status']);
+                            
+                            
+                            var list2=$("#list_00").clone();
+                            list2.attr("id","listp_"+value['P_id']);
+                            if(1!=value['Status']){
+                                list2.find("#begrund").html("Begrund: "+value['S_grund']);
+                                list2.find("#amt3").html(value['S_Datum']);
+                                list.find("#status").html("<a href='javascript:;' onclick='$(\"#listp_"+value['P_id']+"\").toggle();'>"+st+"</a>");
+                            }
+                            else{
+                                list.find("#status").html(st);
+                            }
+                            vlist.append(list);
+                            vlist.append(list2);
+                            
+                            
+                            
+                            });     
+                    },'json');
+        }
+        
+        function suchen(){
+            var name=$("#name").val();
+            var vorname=$("#vorname").val();
+            var fach=$("#fach_select").val();
+            var amt=$("#amt_select").val();
+            var gremin=$("#grem_select").val();
+            
+            
+            select_all(name,vorname,fach,amt,gremin);
+        }
+        
+        
+        
+        
+        
+        
+        
+        </script>
+  </body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Admin</title>
+
+    <!-- Bootstrap -->
+    <link href="templates/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <h1>Administrator</h1>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+      <div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <button type="button" onclick="neueStu();" class="btn btn-default btn-lg">Neue Studenten hinzufügen</button>
+      <button type="button" onclick="fachmg();" class="btn btn-default btn-lg">Fachschaft</button>
+<button type="button" onclick="gremmg();" class="btn btn-default btn-lg">Gremien</button>
+<button type="button" onclick="amtmg();" class="btn btn-default btn-lg">Amtsperiode</button>
+<!--<button type="button" onclick="magreg();" class="btn btn-default btn-lg">Anmelden</button>-->
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+      
+      <p></p>
+      
+      
+      
+      
+      
+      <!--总管理-->
+      <div id="allmg" class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <table class="table table-striped">
+          <!--第一行姓名性别那行-->
+  <tr>
+  <td>Name</td>
+  <td>Vorname</td>
+  <td>Matrikelnr.</td>
+  <td>Fachschaft</td>
+  <td>Von bis</td>
+  <td>Gremien</td>
+  <td>Von bis</td>
+  <td>Status</td>
+  <td>Begrund</td>
+  <td>Zeit</td>
+  <td></td>
+  </tr> 
+  
+  
+<tr id="liststu_0" style="display: none;">
+  <td> <input id="name" type="text" class="form-control" value="" placeholder="Name"/></td>
+  <td><input id="vorname" type="text" class="form-control" value="" placeholder="Vorname"/></td>
+  <td><input id="matr" type="text" class="form-control" value="" placeholder="Matrikelnr."/></td>
+  <td>
+      <select id="fach_select" class="form-control">
+          <option id="fach_select_0" style="display: none;">Fachschaft</option>
+</select>
+      </td>
+      <td>
+      <select id="amt_select" class="form-control">
+          <option id="amt_select_0" style="display: none;">Zeit</option>
+</select>
+      </td>
+  <td>
+      <select id="grem_select" class="form-control">
+          <option id="grem_select_0" style="display: none;">Gremien</option>
+      </select>
+      
+  </td>
+  <td>
+  <select id="amt2_select" class="form-control">
+      <option id="amt2_select_0" style="display: none;">Zeit</option>
+</select> 
+  </td>
+  <td>
+      <select id="status" class="form-control">
+          <option id="status_1" value="1">Normal</option>
+  <option id="status_2" value="2">Austritt</option>
+  <option id="status_3" value="3">Nachrucker</option>
+  
+</select>
+  </td>
+  <td>
+      <input id="begrund" type="text" class="form-control" value="" placeholder="Begrund"/>  
+  </td>
+  <td>
+      <input id="wann" type="text" class="form-control" value="" placeholder="Wann"/>  
+  </td>
+  <td></td>
+</tr>
+<tr id="up_0" style="display: none;">
+    <td>Username:</td>
+     <td colspan="4"  >
+         <input id="username" type="text" class="form-control" value="" placeholder="Username"/>
+         
+        </td>
+        <td>Passwords:</td>
+         <td colspan="4"  >
+             
+             <input id="password" type="password" class="form-control" value="" placeholder="Password"/>
+             
+             
+        </td>
+        <td></td>
+    
+</tr>
+
+<!-- 
+<tr>
+  <td> <input type="text" class="form-control" value="Thomas"/></td>
+  <td><input type="text" class="form-control" value="edisen"/></td>
+  <td><input type="text" class="form-control" value="210241234"/></td>
+  <td>
+      <select class="form-control">
+  <option>Informatik</option>
+  <option>Physic</option>
+  <option>Math</option>
+  <option>Deutsch</option>
+  <option>Webenginue</option>
+</select>
+      </td>
+      <td>
+      <select class="form-control">
+  <option>01.10.2010-01.10.2011</option>
+  <option>01.10.2011-01.10.2012</option>
+</select>
+      </td>
+  <td>
+      <select class="form-control">
+        <option>Studentenrat</option>
+        <option>Fachschaftsrat</option>
+        <option>Studentenrat,Fachschaftsrat</option>
+      </select>
+      
+  </td>
+  <td>
+  <select class="form-control">
+  <option>01.10.2010-01.10.2011</option>
+  <option>01.10.2011-01.10.2012</option>
+</select> 
+  </td>
+  <td>
+      <select class="form-control">
+          <option value="1">Normal</option>
+          <option value="2">Austritt</option>
+          <option value="3">Nachrucker</option>
+  
+</select>
+  </td>
+  <td>
+  <input type="text" class="form-control" value="Fachwechsel"/>  
+  </td>
+  <td>
+  <input type="text" class="form-control" value="2015221"/>  
+  </td>
+  <td><button type="button" onclick="up_o(2)" class="btn btn-default">mehr</button></td>
+</tr>-->
+
+
+<tr id="up_2" style="display: none;">
+    <td>Username:</td>
+     <td colspan="4"  >
+         <input type="text" class="form-control" value="" placeholder="Username"/>
+         
+        </td>
+        <td>Passwords:</td>
+         <td colspan="4"  >
+             
+             <input type="password" class="form-control" value="" placeholder="Password"/>
+             
+             
+        </td>
+        <td><button type="button" onclick="" class="btn btn-warning">änderen</button></td>
+    
+</tr>
+
+
+
+<!--添加学生那一行-->
+<tr id="stuhin" style="display: none;">
+     <td colspan="10"  >
+         
+        </td>
+        <td><button type="button" onclick="neueHinzu();" class="btn btn-info">hinzufügen</button></td>
+    
+</tr>
+</table>
+      
+      
+      
+  </div>
+  <div class="col-md-1"></div>
+</div>
+    
+      
+      
+      
+      
+    
+    <!--fach管理-->
+<div id="fachmg" class="row" style="display: none;">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <table class="table table-striped">
+  <tr>
+  <td>Fachid</td>
+  <td>Bezeichnung</td>
+  <td></td>
+  </tr>
+  <tr id="fach_0" style="display: none;">
+  <td><input id="fach_id" type="text" class="form-control" value=""/></td>
+  <td><input id="fach_be" type="text" class="form-control" value=""/></td>
+  <td><button type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
+  </tr>
+<tr id="fach_hinzu">
+  <td><input id="fachid" type="text" class="form-control"  placeholder="id(optional)"/></td>
+  <td><input id="fachbezeichnung" type="text" class="form-control" placeholder="Bezeichnung"/></td>
+  <td><button type="button" onclick="insert_o('fach');" class="btn btn-default">hinzufüden</button></td>
+</tr>
+
+</table>
+      
+      
+      
+  </div>
+  <div class="col-md-1"></div>
+</div>
+    
+    
+       <!--gremin管理-->
+<div id="greminmg" class="row" style="display: none;">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <table class="table table-striped">
+  <tr>
+  <td>Gremienid</td>
+  <td>Bezeichnung</td>
+  <td>Beschreibung</td>
+  <td></td>
+  </tr>
+  <tr id="grem_0" style="display: none;">
+  <td><input id="grem_id" type="text" class="form-control" value=""/></td>
+  <td><input id="grem_be" type="text" class="form-control" value=""/></td>
+  <td><textarea id="grem_bes" class="form-control"></textarea></td>
+  <td><button type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
+  </tr>
+  <tr id="grem_hinzu">
+  <td><input id="greminid" type="text" class="form-control"  placeholder="id(optional)"/></td>
+  <td><input id="greminbezeichnung" type="text" class="form-control" placeholder="Bezeichnung"/></td>
+  <td><textarea id="greminbeschreibung" class="form-control"></textarea></td>
+  <td><button type="button" onclick="insert_o('gremien');" class="btn btn-default">hinzufüden</button></td>
+</tr>
+
+</table>
+      
+      
+      
+  </div>
+  <div class="col-md-1"></div>
+</div>
+    
+    
+           <!--amtsper管理-->
+<div id="amtsper" class="row" style="display: none;">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <table class="table table-striped">
+  <tr>
+  <td>Amtsperiod ID</td>
+  <td>Beginn</td>
+  <td>Ende</td>
+  <td></td>
+  </tr>
+  <tr id="amt_0" style="display: none;">
+  <td><input id="amt_id" type="text" class="form-control" value=""/></td>
+  <td><input id="amt_beginn" type="text" class="form-control" value=""/></td>
+  <td><input id="amt_enden" type="text" class="form-control" value=""/></td>
+  <td><button type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
+  </tr>
+  <tr id="amt_hinzu">
+  <td><input id="amtsperid" type="text" class="form-control"  placeholder="id(optional)"/></td>
+  <td><input id="amtsperbeginn" type="text" class="form-control" placeholder="Beginn"/></td>
+  <td><input id="amtsperend" type="text" class="form-control" placeholder="Ende"/></td>
+  <td><button type="button" onclick="insert_o('amtsper');" class="btn btn-default">hinzufüden</button></td>
+</tr>
+
+</table>
+      
+      
+      
+  </div>
+  <div class="col-md-1"></div>
+</div>
+           
+    
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="templates/js/bootstrap.min.js"></script>
+    <script src="templates/js/jquery.md5.js"></script>
+    <script>
+        var hid=new Array();
+        var newsid=1;
+        
+        $(document).ready(function(){
+            fach_fresh();
+            grem_fresh();
+            amt_fresh();
+            Stu_fresh();
+          });
+          
+          //--------------------------fach
+          function fachmg(){
+              $("#allmg").hide();
+              $("#greminmg").hide();
+              $("#amtsper").hide();
+              $("#fachmg").show();
+          }
+          function fach_fresh(){
+              $.post("select_o.php",
+                    {
+                      method:"fach",
+                    },
+                    function(data){
+                        $.each(data, function(key, value) {
+                            //添加更多fach
+                            var fach=$("#fach_0").clone();
+                            fach.show();
+                            fach.attr("id","fach_"+value['F_id']);
+                            fach.find("#fach_id").attr("value",value['F_id']);
+                            fach.find("#fach_be").attr("value",value['Bezeichnung']);
+                            $("#fach_hinzu").before(fach);
+                            
+                            //选项卡添加
+                            var fach_select=$("#fach_select_0").clone();
+                            fach_select.show();
+                            fach_select.attr("id","fach_select_"+value['F_id']);
+                            fach_select.html(value['Bezeichnung']);
+                            fach_select.val(value['F_id']);
+                            $("#fach_select").append(fach_select);
+                            
+                            });     
+                    },'json');
+              
+          }
+          
+          //-----------------------------gremin
+          function gremmg(){
+              $("#allmg").hide();
+              $("#fachmg").hide();
+              $("#amtsper").hide();
+              $("#greminmg").show();
+          }
+          
+          function grem_fresh(){
+              $.post("select_o.php",
+                    {
+                      method:"gremien",
+                    },
+                    function(data){
+                        $.each(data, function(key, value) { 
+                            var grem=$("#grem_0").clone();
+                            grem.show();
+                            grem.attr("id","grem_"+value['G_id']);
+                            grem.find("#grem_id").attr("value",value['G_id']);
+                            grem.find("#grem_be").attr("value",value['Bezeichnung']);
+                            grem.find("#grem_bes").html(value['Beschreibungsfeld']);
+                            $("#grem_hinzu").before(grem);
+                            
+                            //选项卡添加
+                            var grem_select=$("#grem_select_0").clone();
+                            grem_select.show();
+                            grem_select.attr("id","grem_select_"+value['G_id']);
+                            grem_select.html(value['Bezeichnung']);
+                            grem_select.val(value['G_id']);
+                            $("#grem_select").append(grem_select);
+                            
+                            });     
+                    },'json');
+          }
+          //--------------------------------amt
+          function amtmg(){
+              $("#allmg").hide();
+              $("#fachmg").hide();
+              $("#greminmg").hide();
+              $("#amtsper").show();
+          }
+          
+          function amt_fresh(){
+              $.post("select_o.php",
+                    {
+                      method:"amtsper",
+                    },
+                    function(data){
+                        $.each(data, function(key, value) { 
+                            var amt=$("#amt_0").clone();
+                            amt.show();
+                            amt.attr("id",value['G_id']);
+                            amt.find("#amt_id").attr("value",value['A_id']);
+                            amt.find("#amt_beginn").attr("value",value['Beginn']);
+                            amt.find("#amt_enden").attr("value",value['Ende']);
+                            $("#amt_hinzu").before(amt);
+                            
+                            
+                            //选项卡添加
+                            var amt_select=$("#amt_select_0").clone();
+                            amt_select.show();
+                            amt_select.attr("id","amt_select_"+value['A_id']);
+                            amt_select.html(value['Beginn']+"-"+value['Ende']);
+                            amt_select.val(value['A_id']);
+                            $("#amt_select").append(amt_select);
+                            
+                            var amt2_select=$("#amt2_select_0").clone();
+                            amt2_select.show();
+                            amt2_select.attr("id","amt2_select_"+value['A_id']);
+                            amt2_select.html(value['Beginn']+"-"+value['Ende']);
+                            amt2_select.val(value['A_id']);
+                            $("#amt2_select").append(amt2_select);
+                            
+                            
+                            });     
+                    },'json');
+          }
+          
+          function Stu_fresh(){
+              $.post("select_p.php",
+                    function(data){
+                        $.each(data, function(key, value) { 
+//                            alert(value);
+                          var list=$("#liststu_0").clone();
+                          var up=$("#up_0").clone();
+                          list.attr("id","newliststu_"+value['P_id']);
+                          list.attr("style","");
+                          list.find("#name").val(value['Name']);
+                          list.find("#vorname").val(value['Vorname']);
+                          list.find("#matr").val(value['Matrikelnr']);
+                          //选项卡选择
+                          list.find("#fach_select_"+value['F_id']).attr("selected","selected");
+                          list.find("#grem_select_"+value['G_id']).attr("selected","selected");
+                          list.find("#amt_select_"+value['F_vonbis']).attr("selected","selected");
+                          list.find("#amt2_select_"+value['G_vonbis']).attr("selected","selected");
+                          list.find("#status_"+value['Status']).attr("selected","selected");
+                          
+                          list.find("#begrund").val(value['S_grund']);
+                          list.find("#wann").val(value['S_Datum']);
+                          
+                          
+                          up.attr("id","newup_"+value['P_id']);
+                          up.attr("style","");
+                          up.find("#username").val(value['username']);
+                          
+                          
+                          
+                          $("#stuhin").before(list);
+                          $("#stuhin").before(up);
+                            
+                            });     
+                    },'json');
+          }
+          
+          function insert_o(method){
+              if("fach"==method){
+                  var fachid=$("#fachid").val();
+                  var fachbezeichnung=$("#fachbezeichnung").val();
+                  $.post("insert_o.php",
+                    {
+                      id:fachid,
+                      method:"fach",
+                      bezeichnung:fachbezeichnung
+                    },
+                    function(data,status){
+                      alert(data);
+                      $("#fachid").val("");
+                      $("#fachbezeichnung").val("");
+                      var fach=$("#fach_0").clone();
+                      fach.show();
+                      fach.attr("id",fachid);
+                      fach.find("#fach_id").attr("value",fachid);
+                      fach.find("#fach_be").attr("value",fachbezeichnung);
+                      $("#fach_hinzu").before(fach);
+                    });
+              }
+              else if("gremien"==method){
+                  var greminid=$("#greminid").val();
+                  var greminbezeichnung=$("#greminbezeichnung").val();
+                  var greminbeschreibung=$("#greminbeschreibung").val();
+                  $.post("insert_o.php",
+                    {
+                      id:greminid,
+                      method:"gremien",
+                      bezeichnung:greminbezeichnung,
+                      beschreben:greminbeschreibung
+                    },
+                    function(data,status){
+                      alert(data);
+                      $("#greminid").val("");
+                      $("#greminbezeichnung").val("");
+                      var grem=$("#grem_0").clone();
+                        grem.show();
+                        grem.attr("id","grem_"+greminid);
+                        grem.find("#grem_id").attr("value",greminid);
+                        grem.find("#grem_be").attr("value",greminbezeichnung);
+                        grem.find("#grem_bes").html(greminbeschreibung);
+                        $("#grem_hinzu").before(grem);
+                        
+                    });
+                  
+              }
+              else if("amtsper"==method){
+                  var amtsperid=$("#amtsperid").val();
+                  var amtsperbeginn=$("#amtsperbeginn").val();
+                  var amtsperend=$("#amtsperend").val();
+                  $.post("insert_o.php",
+                    {
+                      id:amtsperid,
+                      method:"amtsper",
+                      beginn:amtsperbeginn,
+                      ende:amtsperend
+                    },
+                    function(data,status){
+                      alert(data);
+                      $("#amtsperid").val("");
+                      $("#amtsperbeginn").val("");
+                      $("#amtsperend").val("");
+                      var amt=$("#amt_0").clone();
+                        amt.show();
+                        amt.attr("id",amtsperid);
+                        amt.find("#amt_id").attr("value",amtsperid);
+                        amt.find("#amt_beginn").attr("value",amtsperbeginn);
+                        amt.find("#amt_enden").attr("value",amtsperend);
+                        $("#amt_hinzu").before(amt);
+                    });
+                  
+              }
+          }
+          
+          function up_o(id){
+              $("#up_"+id).toggle();
+          }
+          
+          function neueStu(){
+              $("#fachmg").hide();
+              $("#greminmg").hide();
+              $("#amtsper").hide();
+              $("#allmg").show();
+              var list=$("#liststu_0").clone();
+              var up=$("#up_0").clone();
+              list.attr("id","newliststu_"+newsid);
+              list.attr("style","");
+              up.attr("id","newup_"+newsid);
+              up.attr("style","");
+              $("#stuhin").before(list);
+              $("#stuhin").before(up);
+              $("#stuhin").show();
+              hid.push(newsid);
+              newsid++;
+              
+          }
+           function neueHinzu(){
+               $.each(hid, function(key, value) { 
+                   var name=$("#newliststu_"+value).find("#name").val();
+                   var vorname=$("#newliststu_"+value).find("#vorname").val();
+                   var amtr=$("#newliststu_"+value).find("#matr").val();
+                   var fach=$("#newliststu_"+value).find("#fach_select").val();
+                   var amt1=$("#newliststu_"+value).find("#amt_select").val();
+                   var grem=$("#newliststu_"+value).find("#grem_select").val();
+                   var amt2=$("#newliststu_"+value).find("#amt2_select").val();
+                   var status=$("#newliststu_"+value).find("#status").val();
+                   var begrund=$("#newliststu_"+value).find("#begrund").val();
+                   var wann=$("#newliststu_"+value).find("#wann").val();
+                   
+                   var username=$("#newup_"+value).find("#username").val();
+                   var password=$("#newup_"+value).find("#password").val();
+                   password=$.md5(password);
+                   
+                   if(username==""){
+                       return;
+                   }
+                   $.post("insert_p.php",
+                    {
+                      "name":name,
+                      "vorname":vorname,
+                      "amtr":amtr,
+                      "fach":fach,
+                      "amt1":amt1,
+                      "grem":grem,
+                      "amt2":amt2,
+                      "status":status,
+                      "begrund":begrund,
+                      "wann":wann,
+                      "username":username,
+                      "password":password
+                    },
+                    function(data,status){
+                      alert(data);
+                      location.reload() ;
+                      
+                    });
+                   
+                   
+//                  alert(value);
+              }); 
+           }
+          
+          
+    </script>
+  </body>
+</html>

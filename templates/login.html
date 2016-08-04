@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Login</title>
+
+    <!-- Bootstrap -->
+    <link href="templates/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <h1>Login</h1>
+      <form>
+          <br />
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username</label>
+    <input type="text" class="form-control" id="usr" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="psw" placeholder="Password">
+  </div>
+          <a class="btn btn-default" href="javascript:;" role="button" id="sub">Submit</a>
+
+</form>
+      
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="templates/js/bootstrap.min.js"></script>
+    <script src="templates/js/jquery.md5.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#sub").click(function(){
+                
+               var usr=$("#usr").val();
+               var psw=$("#psw").val();
+               var pswn=$.md5(psw);
+               $("#psw").val(pswn);
+              $.post("login.php",
+              {
+                username:usr,
+                password:pswn
+              },
+              function(data,status){
+                alert(data);
+                if(data="Erfolgreich!"){
+                    window.location.reload();
+                }
+                $("#psw").val("");
+              });
+            });
+          });
+    </script>
+  </body>
+</html>
