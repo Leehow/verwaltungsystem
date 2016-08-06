@@ -176,7 +176,7 @@
 </tr>-->
 
 
-<tr id="up_2" style="display: none;">
+<!--<tr id="up_2" style="display: none;">
     <td>Username:</td>
      <td colspan="4"  >
          <input type="text" class="form-control" value="" placeholder="Username"/>
@@ -191,7 +191,7 @@
         </td>
         <td><button type="button" onclick="" class="btn btn-warning">änderen</button></td>
     
-</tr>
+</tr>-->
 
 
 
@@ -229,7 +229,7 @@
   <tr id="fach_0" style="display: none;">
   <td><input id="fach_id" type="text" class="form-control" value=""/></td>
   <td><input id="fach_be" type="text" class="form-control" value=""/></td>
-  <td><button type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
+  <td><button id="fach_del" type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
   </tr>
 <tr id="fach_hinzu">
   <td><input id="fachid" type="text" class="form-control"  placeholder="id(optional)"/></td>
@@ -261,7 +261,7 @@
   <td><input id="grem_id" type="text" class="form-control" value=""/></td>
   <td><input id="grem_be" type="text" class="form-control" value=""/></td>
   <td><textarea id="grem_bes" class="form-control"></textarea></td>
-  <td><button type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
+  <td><button id="grem_del" type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
   </tr>
   <tr id="grem_hinzu">
   <td><input id="greminid" type="text" class="form-control"  placeholder="id(optional)"/></td>
@@ -294,7 +294,7 @@
   <td><input id="amt_id" type="text" class="form-control" value=""/></td>
   <td><input id="amt_beginn" type="text" class="form-control" value=""/></td>
   <td><input id="amt_enden" type="text" class="form-control" value=""/></td>
-  <td><button type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
+  <td><button id="amt_del" type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
   </tr>
   <tr id="amt_hinzu">
   <td><input id="amtsperid" type="text" class="form-control"  placeholder="id(optional)"/></td>
@@ -348,7 +348,14 @@
                             fach.show();
                             fach.attr("id","fach_"+value['F_id']);
                             fach.find("#fach_id").attr("value",value['F_id']);
+                            fach.find("#fach_id").attr("onblur","change('fach',"+value['F_id']+",'F_id','#fach_id')");
                             fach.find("#fach_be").attr("value",value['Bezeichnung']);
+                            fach.find("#fach_be").attr("onblur","change('fach',"+value['F_id']+",'Bezeichnung','#fach_be')");
+                            fach.find("#fach_del").attr("onclick","delet('fach',"+value['F_id']+")");
+                            
+                            
+                            
+                            
                             $("#fach_hinzu").before(fach);
                             
                             //选项卡添加
@@ -383,8 +390,11 @@
                             grem.show();
                             grem.attr("id","grem_"+value['G_id']);
                             grem.find("#grem_id").attr("value",value['G_id']);
+                            grem.find("#grem_id").attr("onblur","change('grem',"+value['G_id']+",'G_id','#grem_id')");
                             grem.find("#grem_be").attr("value",value['Bezeichnung']);
+                            grem.find("#grem_be").attr("onblur","change('grem',"+value['G_id']+",'Bezeichnung','#grem_be')");
                             grem.find("#grem_bes").html(value['Beschreibungsfeld']);
+                            grem.find("#grem_del").attr("onclick","delet('grem',"+value['G_id']+")");
                             $("#grem_hinzu").before(grem);
                             
                             //选项卡添加
@@ -417,8 +427,12 @@
                             amt.show();
                             amt.attr("id",value['G_id']);
                             amt.find("#amt_id").attr("value",value['A_id']);
+                            amt.find("#amt_id").attr("onblur","change('amt',"+value['A_id']+",'A_id','#amt_id')");
                             amt.find("#amt_beginn").attr("value",value['Beginn']);
+                            amt.find("#amt_beginn").attr("onblur","change('amt',"+value['A_id']+",'Beginn','#amt_beginn')");
                             amt.find("#amt_enden").attr("value",value['Ende']);
+                            amt.find("#amt_enden").attr("onblur","change('amt',"+value['A_id']+",'Ende','#amt_enden')");
+                            amt.find("#amt_del").attr("onclick","delet('amt',"+value['A_id']+")");
                             $("#amt_hinzu").before(amt);
                             
                             
@@ -452,23 +466,35 @@
                           list.attr("id","newliststu_"+value['P_id']);
                           list.attr("style","");
                           list.find("#name").val(value['Name']);
+                          list.find("#name").attr("onblur","change('person',"+value['P_id']+",'Name','#name')");
                           list.find("#vorname").val(value['Vorname']);
+                          list.find("#vorname").attr("onblur","change('person',"+value['P_id']+",'Vorname','#vorname')");
                           list.find("#matr").val(value['Matrikelnr']);
+                          list.find("#matr").attr("onblur","change('person',"+value['P_id']+",'Matrikelnr','#matr')");
                           //选项卡选择
                           list.find("#fach_select_"+value['F_id']).attr("selected","selected");
+                          list.find("#fach_select").attr("onblur","change('person',"+value['P_id']+",'F_id','#fach_select')");
                           list.find("#grem_select_"+value['G_id']).attr("selected","selected");
+                          list.find("#grem_select").attr("onblur","change('person',"+value['P_id']+",'G_id','#grem_select')");
                           list.find("#amt_select_"+value['F_vonbis']).attr("selected","selected");
+                          list.find("#amt_select").attr("onblur","change('person',"+value['P_id']+",'F_vonbis','#amt_select')");
                           list.find("#amt2_select_"+value['G_vonbis']).attr("selected","selected");
+                          list.find("#amt2_select").attr("onblur","change('person',"+value['P_id']+",'G_vonbis','#amt2_select')");
                           list.find("#status_"+value['Status']).attr("selected","selected");
+                          list.find("#status").attr("onblur","change('person',"+value['P_id']+",'Status','#status')");
                           
                           list.find("#begrund").val(value['S_grund']);
+                          list.find("#begrund").attr("onblur","change('person',"+value['P_id']+",'S_grund','#begrund')");
                           list.find("#wann").val(value['S_Datum']);
+                          list.find("#wann").attr("onblur","change('person',"+value['P_id']+",'S_Datum','#wann')");
+                          
                           
                           
                           up.attr("id","newup_"+value['P_id']);
                           up.attr("style","");
                           up.find("#username").val(value['username']);
-                          
+                          up.find("#username").attr("onblur","change('username',"+value['P_id']+",'username','#username',"+value['Nutzer_id']+")");
+                          up.find("#password").attr("onblur","change('password',"+value['P_id']+",'password','#password',"+value['Nutzer_id']+")");
                           
                           
                           $("#stuhin").before(list);
@@ -621,6 +647,67 @@
 //                  alert(value);
               }); 
            }
+          
+          
+          function change(method,id,name,nid,cid){
+              var value;
+              if("person"==method){
+                  value=$("#newliststu_"+id).find(nid).val();
+              }
+              else if("username"==method){
+                  value=$("#newup_"+id).find(nid).val();
+                  method="nutzer";
+                  id=cid;
+                  
+              }
+              else if("password"==method){
+                  value=$("#newup_"+id).find(nid).val();
+                  value=$.md5(value);
+                  method="nutzer";
+                  id=cid;
+                  
+              }
+              else{
+                  value=$("#"+method+"_"+id).find(nid).val();
+              }
+              
+              method=method+"change";
+              $.post("changedel.php",
+                {
+                  "method":method,
+                  "id":id,
+                  "name":name,
+                  "value": value
+                },
+                function(data,status){
+                    if(1!=data){
+                        alert(data);
+                    }
+                  
+                });
+          }
+          
+          function delet(method,id){
+              method=method+"delet";
+              $.post("changedel.php",
+                {
+                  "method":method,
+                  "id":id,
+                },
+                function(data,status){
+                    if(1!=data){
+                        alert(data);
+                    }
+                    else{
+//                        alert("Erfolgreich löschen!");
+                        $("#"+method+"_"+id).hide;
+                    }
+                  
+                });
+          }
+          
+          
+          
           
           
     </script>

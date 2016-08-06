@@ -3,7 +3,7 @@ session_start();
 if(!$_SESSION['id']){
     include 'templates/login.html';
 }
-elseif(1==$_SESSION['id']){
+elseif(2==$_SESSION['zugriff']){
     include 'templates/admin.html';
 }
 else{

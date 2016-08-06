@@ -9,9 +9,11 @@ $psw=addslashes($psw);
 $result=mysql_query("select * from Nutzer where username='".$usr."' and password='".$psw."'");
 while($row = mysql_fetch_array($result))
   {
-  $id= $row['Nuter_id'];
+  $id= $row['Nutzer_id'];
+  $zugriff= $row['zugriff'];
   session_start();
   $_SESSION['id']=$id;
+  $_SESSION['zugriff']=$zugriff;
   echo "Erfolgreich!";
   mysql_close($con);
   return true;
