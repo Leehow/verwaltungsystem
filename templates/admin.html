@@ -33,7 +33,7 @@
       <button type="button" onclick="fachmg();" class="btn btn-default btn-lg">Fachschaft</button>
 <button type="button" onclick="gremmg();" class="btn btn-default btn-lg">Gremien</button>
 <button type="button" onclick="amtmg();" class="btn btn-default btn-lg">Amtsperiode</button>
-<!--<button type="button" onclick="magreg();" class="btn btn-default btn-lg">Anmelden</button>-->
+<button type="button" onclick="logout();" class="btn  btn-danger btn-lg">Abmelden</button>
   </div>
   <div class="col-md-1"></div>
 </div>
@@ -707,6 +707,21 @@
           }
           
           
+          
+          function logout(){
+              var r=confirm("Wollen Sie abmelden?");
+                if (r==true)
+                  {
+                    $.post("logout.php",
+                    function(data,status){
+                        window.location.reload();
+                    });
+                  }
+                else
+                  {
+                  }
+              
+          }
           
           
           

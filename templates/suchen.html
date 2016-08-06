@@ -23,6 +23,7 @@
   <div class="col-md-1"></div>
   <div class="col-md-10">
       <h1>Suchen</h1>
+      <p class="text-right"><a href="javascript:;" onclick="logout();">abmelden</a></p>
   </div>
   <div class="col-md-1"></div>
 </div>
@@ -244,7 +245,20 @@
             select_all(name,vorname,fach,amt,gremin);
         }
         
-        
+        function logout(){
+              var r=confirm("Wollen Sie abmelden?");
+                if (r==true)
+                  {
+                    $.post("logout.php",
+                    function(data,status){
+                        window.location.reload();
+                    });
+                  }
+                else
+                  {
+                  }
+              
+          }
         
         
         

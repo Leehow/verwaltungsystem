@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/insert_o.php</file>
             <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/index.php</file>
-            <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/templates/suchen.html</file>
+            <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/templates/index.html</file>
             <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/templates/login.html</file>
-            <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/select_p.php</file>
-            <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/select_o.php</file>
             <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/templates/admin.html</file>
             <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/select_all.php</file>
+            <file>file:/Users/lihao/NetBeansProjects/verwaltungsystem/insert_p.php</file>
         </group>
     </open-files>
 </project-private>
