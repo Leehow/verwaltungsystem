@@ -218,7 +218,7 @@
                             var list2=$("#list_00").clone();
                             list2.attr("id","listp_"+value['P_id']);
                             if(1!=value['Status']){
-                                list2.find("#begrund").html("Begrund: "+value['S_grund']);
+                                list2.find("#begrund").html("Begründung: "+value['S_grund']);
                                 list2.find("#amt3").html(value['S_Datum']);
                                 list.find("#status").html("<a href='javascript:;' onclick='$(\"#listp_"+value['P_id']+"\").toggle();'>"+st+"</a>");
                             }

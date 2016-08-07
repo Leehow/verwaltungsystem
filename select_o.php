@@ -12,6 +12,10 @@ elseif($method=="amtsper"){
     $query="SELECT * FROM Amtsperiode";
 }
 elseif($method=="admin"){
+    session_start();
+    if($_SESSION['zugriff']!=2){
+        die("Error! Kein Zugriff!");
+    }
     $query="SELECT * FROM Nutzer where zugriff=2";
 }
 

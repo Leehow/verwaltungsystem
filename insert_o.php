@@ -1,5 +1,11 @@
 <?php
 require 'sqlcon.php';
+
+session_start();
+if($_SESSION['zugriff']!=2){
+    die("Error! Kein Zugriff!");
+}
+
 $id=$_POST['id'];
 $method=$_POST['method'];
 $bezeichnung=$_POST['bezeichnung'];

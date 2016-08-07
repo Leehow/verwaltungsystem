@@ -5,6 +5,10 @@ $method=$_POST['method'];
 $name=$_POST['name'];
 $value=$_POST['value'];
 
+session_start();
+if($_SESSION['zugriff']!=2){
+    die("Error! Kein Zugriff!");
+}
 
 if("fachdelet"==$method){
     $query="DELETE FROM Fachschaft where F_id=".$id;
@@ -36,7 +40,6 @@ elseif("personchange"==$method){
 elseif("nutzerchange"==$method){
     $query="UPDATE Nutzer SET ".$name." = '".$value."' WHERE Nutzer_id = ".$id;
 }
-
 mysql_query($query);
 //echo $query;
 if(0==mysql_errno($con)){
