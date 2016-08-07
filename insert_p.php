@@ -34,7 +34,7 @@ if(0==$id){
 $query="INSERT INTO Person VALUES (null,'".$id."', '".$name."', '".$vorname."', '".$amtr."', '".$fach."', '".$amt1."', '".$grem."', '".$amt2."', '".$status."', '".$begrund."', '".$wann."')";
 mysql_query($query);
 if(0==mysql_errno($con)){
-    echo "Erfolgreich hinzufügen!";
+    echo "Erfolgreich hinzugefügt!";
 }
 else{
 //    echo $query;

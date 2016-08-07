@@ -15,46 +15,30 @@ elseif ("amtdelet"==$method) {
 elseif ("gremdelet"==$method) {
     $query="DELETE FROM Gremium where G_id=".$id;
 }
-elseif ("presondelet"==$method) {
+elseif ("persondelet"==$method) {
     $query="DELETE FROM Person where P_id=".$id;
 }
+elseif ("admindelet"==$method) {
+    $query="DELETE FROM Nutzer where Nutzer_id=".$id;
+}
 elseif("fachchange"==$method){
-    if(!$value || 0==$value){
-        echo 1;
-        return;
-    }
     $query="UPDATE Fachschaft SET ".$name." = '".$value."' WHERE F_id = ".$id;
 }
 elseif("amtchange"==$method){
-    if(!$value || 0==$value){
-        echo 1;
-        return;
-    }
     $query="UPDATE Amtsperiode SET ".$name." = '".$value."' WHERE A_id = ".$id;
 }
 elseif("gremchange"==$method){
-    if(!$value || 0==$value){
-        echo 1;
-        return;
-    }
     $query="UPDATE Gremium SET ".$name." = '".$value."' WHERE G_id = ".$id;
 }
 elseif("personchange"==$method){
-    if(!$value || 0==$value){
-        echo 1;
-        return;
-    }
     $query="UPDATE Person SET ".$name." = '".$value."' WHERE P_id = ".$id;
 }
 elseif("nutzerchange"==$method){
-    if(!$value || 0==$value){
-        echo 1;
-        return;
-    }
     $query="UPDATE Nutzer SET ".$name." = '".$value."' WHERE Nutzer_id = ".$id;
 }
 
 mysql_query($query);
+//echo $query;
 if(0==mysql_errno($con)){
     echo 1;
 }

@@ -11,6 +11,9 @@ elseif($method=="gremien"){
 elseif($method=="amtsper"){
     $query="SELECT * FROM Amtsperiode";
 }
+elseif($method=="admin"){
+    $query="SELECT * FROM Nutzer where zugriff=2";
+}
 
 $get=  mysql_query($query);
 while($row = mysql_fetch_array($get)){

@@ -33,6 +33,7 @@
       <button type="button" onclick="fachmg();" class="btn btn-default btn-lg">Fachschaft</button>
 <button type="button" onclick="gremmg();" class="btn btn-default btn-lg">Gremien</button>
 <button type="button" onclick="amtmg();" class="btn btn-default btn-lg">Amtsperiode</button>
+<button type="button" onclick="admg();" class="btn btn-default btn-lg">Admin</button>
 <button type="button" onclick="logout();" class="btn  btn-danger btn-lg">Abmelden</button>
   </div>
   <div class="col-md-1"></div>
@@ -40,16 +41,43 @@
 
       
       <p></p>
+      <div id="succ" class="row">
+  <div class="col-md-1"></div>
+  
+  
+  <div class="col-md-2"><input type="text" class="form-control" id="sname" placeholder="Name"></div>
+  <div class="col-md-2"><input type="text" class="form-control" id="svorname" placeholder="Vorname"></div>
+  <div class="col-md-2">
+      <select id="sfach_select" class="form-control">
+        <option id="sfach_select_0" value="0">Fachschaft</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+      <select id="samt_select" class="form-control">
+              <option id="samt_select_0" value="0">Wahlperiode</option>
+    </select>
+  </div>
+  <div class="col-md-1">
+      <select id="sgrem_select" class="form-control">
+              <option id="sgrem_select_0" value="0">Gremiun</option>
+    </select>
+  </div>
+  
+  <div class="col-md-1">
+      <a id="suchen" class="btn btn-default" href="javascript:;" role="button" onclick="suchen();">Suchen</a>
+  </div>
+  <div class="col-md-1"></div>
+</div>
       
       
       
-      
+      <p></p>
       
       <!--总管理-->
       <div id="allmg" class="row">
   <div class="col-md-1"></div>
   <div class="col-md-10">
-      <table class="table table-striped">
+      <table id="list_all" class="table table-striped" style="display: none;">
           <!--第一行姓名性别那行-->
   <tr>
   <td>Name</td>
@@ -105,7 +133,7 @@
   <td>
       <input id="wann" type="text" class="form-control" value="" placeholder="Wann"/>  
   </td>
-  <td></td>
+  <td><button id="person_del" type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
 </tr>
 <tr id="up_0" style="display: none;">
     <td>Username:</td>
@@ -234,7 +262,7 @@
 <tr id="fach_hinzu">
   <td><input id="fachid" type="text" class="form-control"  placeholder="id(optional)"/></td>
   <td><input id="fachbezeichnung" type="text" class="form-control" placeholder="Bezeichnung"/></td>
-  <td><button type="button" onclick="insert_o('fach');" class="btn btn-default">hinzufüden</button></td>
+  <td><button type="button" onclick="insert_o('fach');" class="btn btn-default">hinzufügen</button></td>
 </tr>
 
 </table>
@@ -267,7 +295,7 @@
   <td><input id="greminid" type="text" class="form-control"  placeholder="id(optional)"/></td>
   <td><input id="greminbezeichnung" type="text" class="form-control" placeholder="Bezeichnung"/></td>
   <td><textarea id="greminbeschreibung" class="form-control"></textarea></td>
-  <td><button type="button" onclick="insert_o('gremien');" class="btn btn-default">hinzufüden</button></td>
+  <td><button type="button" onclick="insert_o('gremien');" class="btn btn-default">hinzufügen</button></td>
 </tr>
 
 </table>
@@ -300,7 +328,7 @@
   <td><input id="amtsperid" type="text" class="form-control"  placeholder="id(optional)"/></td>
   <td><input id="amtsperbeginn" type="text" class="form-control" placeholder="Beginn"/></td>
   <td><input id="amtsperend" type="text" class="form-control" placeholder="Ende"/></td>
-  <td><button type="button" onclick="insert_o('amtsper');" class="btn btn-default">hinzufüden</button></td>
+  <td><button type="button" onclick="insert_o('amtsper');" class="btn btn-default">hinzufügen</button></td>
 </tr>
 
 </table>
@@ -312,6 +340,37 @@
 </div>
            
     
+              <!--admin管理-->
+<div id="adminmg" class="row" style="display: none;">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <table class="table table-striped">
+  <tr>
+  <td>Username</td>
+  <td>password</td>
+  <td></td>
+  </tr>
+  <tr id="admg_0" style="display: none;">
+  <td><input id="admg_usr" type="text" class="form-control" value=""/></td>
+  <td><input id="admg_psw" type="text" class="form-control" value=""/></td>
+  <td><button id="admg_del" type="button" onclick="" class="btn btn-danger btn-default">löschen</button></td>
+  </tr>
+<tr id="admg_hinzu">
+  <td><input id="adminusr" type="text" class="form-control"  placeholder="username"/></td>
+  <td><input id="adminpsw" type="text" class="form-control" placeholder="password"/></td>
+  <td><button type="button" onclick="insert_o('admin');" class="btn btn-default">hinzufügen</button></td>
+</tr>
+
+</table>
+      
+      
+      
+  </div>
+  <div class="col-md-1"></div>
+</div>
+           
+           
+           
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
@@ -327,6 +386,7 @@
             grem_fresh();
             amt_fresh();
             Stu_fresh();
+            ad_fresh()
           });
           
           //--------------------------fach
@@ -334,6 +394,8 @@
               $("#allmg").hide();
               $("#greminmg").hide();
               $("#amtsper").hide();
+              $("#succ").hide();
+              $("#adminmg").hide();
               $("#fachmg").show();
           }
           function fach_fresh(){
@@ -351,20 +413,30 @@
                             fach.find("#fach_id").attr("onblur","change('fach',"+value['F_id']+",'F_id','#fach_id')");
                             fach.find("#fach_be").attr("value",value['Bezeichnung']);
                             fach.find("#fach_be").attr("onblur","change('fach',"+value['F_id']+",'Bezeichnung','#fach_be')");
-                            fach.find("#fach_del").attr("onclick","delet('fach',"+value['F_id']+")");
+                            fach.find("#fach_del").attr("onclick","delet('fach',"+value['F_id']+",'#fach_"+value['F_id']+"')");
                             
                             
                             
                             
                             $("#fach_hinzu").before(fach);
                             
-                            //选项卡添加
+                            //person选项卡添加
                             var fach_select=$("#fach_select_0").clone();
                             fach_select.show();
                             fach_select.attr("id","fach_select_"+value['F_id']);
                             fach_select.html(value['Bezeichnung']);
                             fach_select.val(value['F_id']);
                             $("#fach_select").append(fach_select);
+                            
+                            
+                            
+                             //搜索选项卡添加
+                            var sfach_select=$("#sfach_select_0").clone();
+                            sfach_select.show();
+                            sfach_select.attr("id","sfach_select_"+value['F_id']);
+                            sfach_select.html(value['Bezeichnung']);
+                            sfach_select.val(value['F_id']);
+                            $("#sfach_select").append(sfach_select);
                             
                             });     
                     },'json');
@@ -376,6 +448,8 @@
               $("#allmg").hide();
               $("#fachmg").hide();
               $("#amtsper").hide();
+              $("#succ").hide();
+              $("#adminmg").hide();
               $("#greminmg").show();
           }
           
@@ -394,16 +468,25 @@
                             grem.find("#grem_be").attr("value",value['Bezeichnung']);
                             grem.find("#grem_be").attr("onblur","change('grem',"+value['G_id']+",'Bezeichnung','#grem_be')");
                             grem.find("#grem_bes").html(value['Beschreibungsfeld']);
-                            grem.find("#grem_del").attr("onclick","delet('grem',"+value['G_id']+")");
+                            grem.find("#grem_bes").attr("onblur","change('grem',"+value['G_id']+",'Beschreibungsfeld','#grem_bes')");
+                            grem.find("#grem_del").attr("onclick","delet('grem',"+value['G_id']+",'#grem_"+value['G_id']+"')");
                             $("#grem_hinzu").before(grem);
                             
-                            //选项卡添加
+                            //person选项卡添加
                             var grem_select=$("#grem_select_0").clone();
                             grem_select.show();
                             grem_select.attr("id","grem_select_"+value['G_id']);
                             grem_select.html(value['Bezeichnung']);
                             grem_select.val(value['G_id']);
                             $("#grem_select").append(grem_select);
+                            
+                            //search选项卡添加
+                            var grem_select=$("#sgrem_select_0").clone();
+                            grem_select.show();
+                            grem_select.attr("id","sgrem_select_"+value['G_id']);
+                            grem_select.html(value['Bezeichnung']);
+                            grem_select.val(value['G_id']);
+                            $("#sgrem_select").append(grem_select);
                             
                             });     
                     },'json');
@@ -413,6 +496,8 @@
               $("#allmg").hide();
               $("#fachmg").hide();
               $("#greminmg").hide();
+              $("#succ").hide();
+              $("#adminmg").hide();
               $("#amtsper").show();
           }
           
@@ -425,18 +510,18 @@
                         $.each(data, function(key, value) { 
                             var amt=$("#amt_0").clone();
                             amt.show();
-                            amt.attr("id",value['G_id']);
+                            amt.attr("id","amt_"+value['A_id']);
                             amt.find("#amt_id").attr("value",value['A_id']);
                             amt.find("#amt_id").attr("onblur","change('amt',"+value['A_id']+",'A_id','#amt_id')");
                             amt.find("#amt_beginn").attr("value",value['Beginn']);
                             amt.find("#amt_beginn").attr("onblur","change('amt',"+value['A_id']+",'Beginn','#amt_beginn')");
                             amt.find("#amt_enden").attr("value",value['Ende']);
                             amt.find("#amt_enden").attr("onblur","change('amt',"+value['A_id']+",'Ende','#amt_enden')");
-                            amt.find("#amt_del").attr("onclick","delet('amt',"+value['A_id']+")");
+                            amt.find("#amt_del").attr("onclick","delet('amt',"+value['A_id']+",'#amt_"+value['A_id']+"')");
                             $("#amt_hinzu").before(amt);
                             
                             
-                            //选项卡添加
+                            //person选项卡添加
                             var amt_select=$("#amt_select_0").clone();
                             amt_select.show();
                             amt_select.attr("id","amt_select_"+value['A_id']);
@@ -451,19 +536,76 @@
                             amt2_select.val(value['A_id']);
                             $("#amt2_select").append(amt2_select);
                             
+                            //search选项卡添加
+                            var amt_select=$("#samt_select_0").clone();
+                            amt_select.show();
+                            amt_select.attr("id","samt_select_"+value['A_id']);
+                            amt_select.html(value['Beginn']+"-"+value['Ende']);
+                            amt_select.val(value['A_id']);
+                            $("#samt_select").append(amt_select);
+                            
                             
                             });     
                     },'json');
           }
           
-          function Stu_fresh(){
-              $.post("select_p.php",
+          
+          function admg(){
+              $("#allmg").hide();
+              $("#fachmg").hide();
+              $("#greminmg").hide();
+              $("#succ").hide();
+              $("#amtsper").hide();
+              $("#adminmg").show();
+          }
+          
+          function ad_fresh(){
+              $.post("select_o.php",
+                    {
+                      method:"admin",
+                    },
                     function(data){
+                        $.each(data, function(key, value) { 
+                            var admg=$("#admg_0").clone();
+                            admg.show();
+                            admg.attr("id","admg_"+value['Nutzer_id']);
+                            admg.find("#admg_usr").attr("value",value['username']);
+                            admg.find("#admg_usr").attr("onblur","change('ausername',"+value['Nutzer_id']+",'username','#admg_usr')");
+//                            admg.find("#admg_psw").attr("value",value['password']);
+                            admg.find("#admg_psw").attr("onblur","change('apassword',"+value['Nutzer_id']+",'password','#admg_psw')");
+                            admg.find("#admg_del").attr("onclick","delet('admin',"+value['Nutzer_id']+",'#admg_"+value['Nutzer_id']+"')");
+                            $("#admg_hinzu").before(admg);
+                            
+                            
+                            });     
+                    },'json');
+          }
+          
+          
+          function Stu_fresh(name,vorname,fach,amt,gremin){
+              $("#listp_all").remove();
+              var vlist=$("#list_all").clone();
+              vlist.attr("id","listp_all");
+              vlist.show();
+              $("#list_all").after(vlist);
+              
+              $.post("select_p.php",
+                    {  
+                      "name":name,
+                      "vorname":vorname,
+                      "fach":fach,
+                      "amt":amt,
+                      "gremin":gremin
+                    },
+                    function(data){
+                        if(!data){
+                            return false;
+                        }
                         $.each(data, function(key, value) { 
 //                            alert(value);
                           var list=$("#liststu_0").clone();
                           var up=$("#up_0").clone();
-                          list.attr("id","newliststu_"+value['P_id']);
+                          list.attr("id","nliststu_"+value['P_id']);
                           list.attr("style","");
                           list.find("#name").val(value['Name']);
                           list.find("#name").attr("onblur","change('person',"+value['P_id']+",'Name','#name')");
@@ -482,6 +624,7 @@
                           list.find("#amt2_select").attr("onblur","change('person',"+value['P_id']+",'G_vonbis','#amt2_select')");
                           list.find("#status_"+value['Status']).attr("selected","selected");
                           list.find("#status").attr("onblur","change('person',"+value['P_id']+",'Status','#status')");
+                          list.find("#person_del").attr("onclick","delet('person',"+value['P_id']+")");
                           
                           list.find("#begrund").val(value['S_grund']);
                           list.find("#begrund").attr("onblur","change('person',"+value['P_id']+",'S_grund','#begrund')");
@@ -490,15 +633,15 @@
                           
                           
                           
-                          up.attr("id","newup_"+value['P_id']);
+                          up.attr("id","nup_"+value['P_id']);
                           up.attr("style","");
                           up.find("#username").val(value['username']);
                           up.find("#username").attr("onblur","change('username',"+value['P_id']+",'username','#username',"+value['Nutzer_id']+")");
                           up.find("#password").attr("onblur","change('password',"+value['P_id']+",'password','#password',"+value['Nutzer_id']+")");
                           
                           
-                          $("#stuhin").before(list);
-                          $("#stuhin").before(up);
+                          vlist.find("#stuhin").before(list);
+                          vlist.find("#stuhin").before(up);
                             
                             });     
                     },'json');
@@ -553,7 +696,7 @@
                   
               }
               else if("amtsper"==method){
-                  var amtsperid=$("#amtsperid").val();
+                  var amtsperid=$("#admg_usr").val();
                   var amtsperbeginn=$("#amtsperbeginn").val();
                   var amtsperend=$("#amtsperend").val();
                   $.post("insert_o.php",
@@ -578,6 +721,27 @@
                     });
                   
               }
+              else if("admin"==method){
+                  var usr=$("#adminusr").val();
+                  var psw=$("#adminpsw").val();
+                  psw=$.md5(psw);
+                  $.post("insert_o.php",
+                    {
+                      "method":"admin",
+                      "username":usr,
+                      "password":psw,
+                    },
+                    function(data,status){
+                      alert(data);
+                      $("#adminusr").val("");
+                      $("#adminpsw").val("");
+                      var admg=$("#admg_0").clone();
+                        admg.show();
+                        admg.attr("id","admg_new");
+                        admg.find("#admg_usr").attr("value",usr);
+                        $("#admg_hinzu").before(admg);
+                    });
+              }
           }
           
           function up_o(id){
@@ -589,15 +753,18 @@
               $("#greminmg").hide();
               $("#amtsper").hide();
               $("#allmg").show();
+              $("#succ").show();
               var list=$("#liststu_0").clone();
               var up=$("#up_0").clone();
               list.attr("id","newliststu_"+newsid);
               list.attr("style","");
+              list.find("#person_del").attr("onclick","$('#newliststu_"+newsid+"').remove();");
               up.attr("id","newup_"+newsid);
               up.attr("style","");
-              $("#stuhin").before(list);
-              $("#stuhin").before(up);
-              $("#stuhin").show();
+              var vlist=$("#listp_all")
+              vlist.find("#stuhin").before(list);
+              vlist.find("#stuhin").before(up);
+              vlist.find("#stuhin").show();
               hid.push(newsid);
               newsid++;
               
@@ -652,10 +819,10 @@
           function change(method,id,name,nid,cid){
               var value;
               if("person"==method){
-                  value=$("#newliststu_"+id).find(nid).val();
+                  value=$("#nliststu_"+id).find(nid).val();
               }
               else if("username"==method){
-                  value=$("#newup_"+id).find(nid).val();
+                  value=$("#nup_"+id).find(nid).val();
                   method="nutzer";
                   id=cid;
                   
@@ -667,10 +834,23 @@
                   id=cid;
                   
               }
+              else if("ausername"==method){
+                  value=$("#admg_"+id).find(nid).val();
+                  method="nutzer";
+                  
+              }
+              else if("apassword"==method){
+                  value=$("#admg_"+id).find(nid).val();
+                  value=$.md5(value);
+                  method="nutzer";
+                  
+              }
               else{
                   value=$("#"+method+"_"+id).find(nid).val();
               }
-              
+              if(!value || 0==value){
+                  return;
+              }
               method=method+"change";
               $.post("changedel.php",
                 {
@@ -687,23 +867,38 @@
                 });
           }
           
-          function delet(method,id){
+          function delet(method,id,nid){
+              
               method=method+"delet";
-              $.post("changedel.php",
-                {
-                  "method":method,
-                  "id":id,
-                },
-                function(data,status){
-                    if(1!=data){
-                        alert(data);
-                    }
-                    else{
-//                        alert("Erfolgreich löschen!");
-                        $("#"+method+"_"+id).hide;
-                    }
-                  
-                });
+              var r=confirm("Wollen Sie die Daten löschen?");
+                if (r==true)
+                  {
+                      if(method=="persondelet"){
+                            $("#nliststu_"+id).hide();
+                            $("#nup_"+id).hide();
+                        }
+                    $.post("changedel.php",
+                    {
+                      "method":method,
+                      "id":id,
+                    },
+                    function(data,status){
+                        if(1!=data){
+                            alert(data);
+                        }
+                        else{
+//                            alert("Erfolgreich löschen! press F5 refresh");
+                            if(nid){
+                                $(nid).hide();
+                            }
+                        }
+
+                    });
+                  }
+                else
+                  {
+                  }
+              
           }
           
           
@@ -723,6 +918,17 @@
               
           }
           
+          
+          function suchen(){
+            var name=$("#sname").val();
+            var vorname=$("#svorname").val();
+            var fach=$("#sfach_select").val();
+            var amt=$("#samt_select").val();
+            var gremin=$("#sgrem_select").val();
+            
+            
+            Stu_fresh(name,vorname,fach,amt,gremin);
+        }
           
           
     </script>
